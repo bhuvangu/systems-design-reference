@@ -4,169 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Systems Design Reference</title>
-<meta name="description" content="A set of dense, print-ready reference sheets for system design and software architecture — patterns, concepts, vocabulary, and practitioner field notes.">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700;6..72,1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
-  :root{
-    --ink:#16181d; --soft:#444a54; --faint:#7e8590; --paper:#fcfbf8; --card:#ffffff;
-    --line:#e6e3da; --rust:#b03f1c; --blue:#1d4ed8; --teal:#0e7c66;
-    --steel:#1e5f8c; --plum:#8a3a6b;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,ital,wght@6..72,0,400;6..72,0,600;6..72,0,700;6..72,1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  :root{ --ink:#16181d; --soft:#444a54; --faint:#7e8590; --paper:#fcfbf8; --rust:#b03f1c; --line:#e6e3da; }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
-    font-family:'IBM Plex Sans',sans-serif; color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; color:var(--ink);
     background:var(--paper);
-    background-image:radial-gradient(circle at 1px 1px, rgba(0,0,0,.018) 1px, transparent 0);
+    background-image:radial-gradient(circle at 1px 1px, rgba(0,0,0,.02) 1px, transparent 0);
     background-size:16px 16px;
-    line-height:1.5; -webkit-font-smoothing:antialiased;
-    padding:48px 20px 64px;
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:40px 20px; -webkit-font-smoothing:antialiased;
   }
-  .wrap{ max-width:880px; margin:0 auto; }
-
-  header{ border-bottom:3px solid var(--ink); padding-bottom:18px; margin-bottom:6px; }
-  header .kicker{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:2px;
-    text-transform:uppercase; color:var(--rust); margin-bottom:8px; }
-  header h1{ font-family:'Newsreader',serif; font-size:46px; font-weight:700; letter-spacing:-1px; line-height:1; }
-  header h1 em{ font-style:italic; color:var(--rust); }
-  header p{ font-size:15px; color:var(--soft); margin-top:14px; max-width:640px; }
-  header p em{ font-style:italic; }
-
-  .meta-row{ display:flex; gap:22px; flex-wrap:wrap; margin-top:16px;
-    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--faint); letter-spacing:.5px; }
-  .meta-row b{ color:var(--ink); font-weight:600; }
-
-  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:34px; }
-  @media(max-width:680px){ .grid{ grid-template-columns:1fr; } header h1{ font-size:34px; } }
-
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:7px;
-    padding:20px 20px 16px; position:relative; overflow:hidden;
-    transition:transform .14s ease, box-shadow .14s ease;
-  }
-  .card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.09); }
-  .card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent); }
-  .card.c1{ --accent:var(--rust); } .card.c2{ --accent:var(--blue); }
-  .card.c3{ --accent:var(--teal); } .card.c4{ --accent:var(--steel); }
-
-  .card .num{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--faint);
-    letter-spacing:1px; }
-  .card h2{ font-family:'Newsreader',serif; font-size:23px; font-weight:600; line-height:1.05;
-    margin:3px 0 7px; }
-  .card .tag{ display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:9.5px;
-    text-transform:uppercase; letter-spacing:.6px; color:var(--accent);
-    border:1px solid var(--accent); border-radius:3px; padding:1px 6px; margin-bottom:9px; opacity:.85; }
-  .card p{ font-size:13px; color:var(--soft); margin-bottom:14px; }
-  .links{ display:flex; gap:8px; }
-  .links a{
-    font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500;
-    text-decoration:none; padding:6px 11px; border-radius:5px; letter-spacing:.4px;
-    transition:background .12s ease, color .12s ease;
-  }
-  .links a.view{ background:var(--accent); color:#fff; }
-  .links a.view:hover{ filter:brightness(1.08); }
-  .links a.pdf{ background:transparent; color:var(--accent); border:1px solid var(--accent); }
-  .links a.pdf:hover{ background:var(--accent); color:#fff; }
-
-  .docs{ margin-top:30px; border-top:1px solid var(--line); padding-top:22px; }
-  .docs h3{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:1.5px;
-    text-transform:uppercase; color:var(--faint); margin-bottom:12px; }
-  .docs ul{ list-style:none; display:flex; flex-direction:column; gap:7px; }
-  .docs li{ font-size:13.5px; }
-  .docs a{ color:var(--blue); text-decoration:none; font-weight:500; }
-  .docs a:hover{ text-decoration:underline; }
-  .docs .d{ color:var(--soft); }
-
-  .note{ margin-top:28px; background:#f6f3ea; border:1px solid var(--line);
-    border-left:3px solid var(--rust); border-radius:0 6px 6px 0; padding:13px 16px;
-    font-size:12.5px; color:var(--soft); }
-  .note b{ color:var(--ink); }
-
-  footer{ margin-top:40px; border-top:1px solid var(--line); padding-top:16px;
-    font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--faint);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; letter-spacing:.4px; }
-  footer a{ color:var(--faint); }
+  .card{ max-width:560px; text-align:left; }
+  .kicker{ font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--rust); margin-bottom:14px; }
+  h1{ font-family:'Newsreader',serif; font-size:44px; font-weight:700; letter-spacing:-1px; line-height:1.02; }
+  h1 em{ font-style:italic; color:var(--rust); }
+  p{ font-family:'Newsreader',serif; font-size:17px; color:var(--soft); margin-top:18px; line-height:1.5; }
+  .rule{ height:3px; background:var(--ink); margin:22px 0 0; }
+  .foot{ margin-top:18px; font-size:10.5px; letter-spacing:.6px; color:var(--faint); }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-  <header>
+  <div class="card">
     <div class="kicker">Reference Collection</div>
     <h1>Systems Design <em>Reference</em></h1>
-    <p>A set of dense, print-ready sheets for system design and software architecture — the <em>patterns</em> you reach for, the <em>concepts</em> you should know, the <em>vocabulary</em> architects use, and the <em>field notes</em> you reason about on the job. Every sheet is one click to view in the browser or download as a print-ready PDF.</p>
-    <div class="meta-row">
-      <span><b>4</b> sheets</span>
-      <span><b>18</b> areas in the field notes</span>
-      <span><b>~400</b> concept terms</span>
-      <span>A4 &amp; Letter · print-ready</span>
-    </div>
-  </header>
-
-  <div class="grid">
-
-    <div class="card c1">
-      <div class="num">01</div>
-      <span class="tag">Patterns · 2 pages</span>
-      <h2>Architecture Cookbook Cheatsheet</h2>
-      <p>25 battle-tested patterns — replication, CQRS, saga, feed fan-out, counters, rate limiting, circuit breakers, cells — each with its variants and the tradeoffs that decide which to pick.</p>
-      <div class="links">
-        <a class="view" href="sheets/cookbook-cheatsheet.html">View →</a>
-        <a class="pdf" href="pdf/cookbook-cheatsheet.pdf">PDF</a>
-      </div>
-    </div>
-
-    <div class="card c2">
-      <div class="num">02</div>
-      <span class="tag">Concepts · 2 pages</span>
-      <h2>Systems Engineering Keyword Map</h2>
-      <p>~400 concept terms classified into 10 colour-coded areas — foundations, networking, data, compute, resource &amp; traffic, reliability, architecture, security, observability, specialized systems.</p>
-      <div class="links">
-        <a class="view" href="sheets/keyword-map.html">View →</a>
-        <a class="pdf" href="pdf/keyword-map.pdf">PDF</a>
-      </div>
-    </div>
-
-    <div class="card c3">
-      <div class="num">03</div>
-      <span class="tag">Vocabulary · 2 pages</span>
-      <h2>The Architect's Vocabulary</h2>
-      <p>~110 terms with one-line definitions across 10 areas — consistency &amp; coordination, distributed systems, cloud-native, data, AI/LLM systems, and more. Current terms tagged <em>NEW</em>.</p>
-      <div class="links">
-        <a class="view" href="sheets/vocabulary.html">View →</a>
-        <a class="pdf" href="pdf/vocabulary.pdf">PDF</a>
-      </div>
-    </div>
-
-    <div class="card c4">
-      <div class="num">04</div>
-      <span class="tag">Field Notes · 4 pages</span>
-      <h2>Practitioner's Field Notes</h2>
-      <p>18 areas in <em>term · gloss · ⚠ gotcha</em> form — clocks, caching, locking, traffic shaping, metrics, failure modes, counting, rate limiting, auth, isolation, compliance, operations, tech finance.</p>
-      <div class="links">
-        <a class="view" href="sheets/field-notes.html">View →</a>
-        <a class="pdf" href="pdf/field-notes.pdf">PDF</a>
-      </div>
-    </div>
-
+    <p>A working collection of dense, print-ready reference material for system design and software architecture.</p>
+    <div class="rule"></div>
+    <div class="foot">STATIC SITE</div>
   </div>
-
-  <div class="docs">
-    <h3>Long-form companions</h3>
-    <ul>
-      <li><a href="docs/architecture-cookbook.md">Architecture Cookbook</a> <span class="d">— the full prose version: 25 patterns with problem, approaches, pros/cons, and how to choose.</span></li>
-      <li><a href="docs/system-design-toc.md">System Design — Concept Table of Contents</a> <span class="d">— 54-chapter hierarchical map of every system-design concept and pattern.</span></li>
-    </ul>
-  </div>
-
-  <div class="note">
-    <b>Printing tip:</b> open any sheet's <em>View</em> page and use your browser's <em>Print → Save as PDF</em> with “Background graphics” enabled — the sheets are sized to A4 (and print fine on Letter). The PDFs are also pre-rendered in the <code>pdf/</code> folder.
-  </div>
-
-  <footer>
-    <span>Systems Design Reference · built as a static site</span>
-    <span>term · gloss · ⚠ gotcha</span>
-  </footer>
-
-</div>
 </body>
 </html>

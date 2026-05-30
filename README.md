@@ -1,68 +1,32 @@
 # Systems Design Reference
 
-A set of dense, print-ready reference sheets for system design and software architecture. View them in the browser or download the PDFs.
+A static site with a single print-ready reference sheet plus two long-form markdown companions.
 
-**Live site:** `https://<your-username>.github.io/systems-design-reference/`
-*(replace `<your-username>` after you publish — see below)*
+## Pages
 
----
+- **Landing:** `https://<your-username>.github.io/<repo>/`
+- **Field Notes (direct link):** `https://<your-username>.github.io/<repo>/docs/field-practitioner.html`
 
-## What's inside
+The field-notes page is intentionally **not linked** from the landing page — reach it by its direct URL.
 
-| # | Sheet | Format | What it covers |
-|---|-------|--------|----------------|
-| 01 | **Architecture Cookbook Cheatsheet** | 2 pages | 25 patterns with variants + tradeoffs |
-| 02 | **Systems Engineering Keyword Map** | 2 pages | ~400 concept terms in 10 areas |
-| 03 | **The Architect's Vocabulary** | 2 pages | ~110 terms with one-line definitions |
-| 04 | **Practitioner's Field Notes** | 4 pages | 18 areas: term · gloss · ⚠ gotcha |
+## Field Notes
 
-Plus two long-form companions in [`docs/`](docs/): the full prose **Architecture Cookbook** and a 54-chapter **System Design concept TOC**.
+A single self-contained HTML file (inline CSS, web fonts only — no local dependencies). It's one continuous flowing document: the browser handles layout, and **Chrome's Print → Save as PDF** handles pagination (enable “Background graphics”). No fixed page sizing baked in.
 
----
+18 areas of system-design terms in `term · gloss · ⚠ gotcha` form: clocks & ordering, cache & write strategies, locking & consistency, traffic shaping & routing, capacity & estimation, top-line metrics, scaling failure modes, deployment, messaging & queues, debugging & analytics, counting at scale, rate limiting, authentication, isolation, compliance, operations & incidents, tech finance & business.
 
-## Publish to GitHub Pages (one time, ~2 minutes)
+## Companions (markdown)
 
-From inside this folder:
+- [`docs/architecture-cookbook.md`](docs/architecture-cookbook.md) — 25 patterns with problem, approaches, pros/cons, and how to choose.
+- [`docs/system-design-toc.md`](docs/system-design-toc.md) — 54-chapter hierarchical map of system-design concepts.
 
-```bash
-git init
-git add .
-git commit -m "Systems design reference sheets"
-git branch -M main
-# create an empty repo named systems-design-reference on github.com first, then:
-git remote add origin https://github.com/<your-username>/systems-design-reference.git
-git push -u origin main
-```
-
-Then turn on Pages:
-
-1. Go to your repo on github.com → **Settings** → **Pages**
-2. Under **Build and deployment → Source**, choose **Deploy from a branch**
-3. Branch: **main**, folder: **/ (root)** → **Save**
-4. Wait ~1 minute, then visit `https://<your-username>.github.io/systems-design-reference/`
-
-That's it — `index.html` is the landing page and everything links from there.
-
-> **Note:** the `.nojekyll` file tells GitHub Pages to serve the files as-is (no Jekyll build), which is what we want for a plain static site.
-
----
-
-## Repository layout
+## Layout
 
 ```
 .
-├── index.html              ← landing page (links everything)
-├── sheets/                 ← the cheat sheets (open in browser)
-│   ├── cookbook-cheatsheet.html
-│   ├── keyword-map.html
-│   ├── vocabulary.html
-│   └── field-notes.html
-├── pdf/                    ← pre-rendered print-ready PDFs
-│   ├── cookbook-cheatsheet.pdf
-│   ├── keyword-map.pdf
-│   ├── vocabulary.pdf
-│   └── field-notes.pdf
-├── docs/                   ← long-form markdown companions
+├── index.html                    ← landing page (no links out)
+├── docs/
+│   ├── field-practitioner.html   ← the reference sheet (single continuous file)
 │   ├── architecture-cookbook.md
 │   └── system-design-toc.md
 ├── .nojekyll
@@ -70,10 +34,6 @@ That's it — `index.html` is the landing page and everything links from there.
 └── README.md
 ```
 
-## Editing a sheet
-
-Each sheet is a single self-contained `.html` file (inline CSS, web fonts from Google Fonts). Edit the HTML directly, then to regenerate a PDF use your browser's **Print → Save as PDF** with “Background graphics” on, sized to A4.
-
 ## License
 
-[MIT](LICENSE) — use, adapt, and share freely.
+[MIT](LICENSE)
