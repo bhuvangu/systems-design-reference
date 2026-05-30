@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Practitioner's Field Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root{
+    --ink:#17171a;
+    --soft:#41454d;
+    --faint:#888d97;
+    --paper:#fcfbf8;
+    --line:#e6e3da;
+    --hair:#f0ede5;
+    --warn:#b23a1a;
+    --a1:#1d4ed8; --a2:#0e7c66; --a3:#b03f1c; --a4:#6d28a8; --a5:#0a6e93;
+    --a6:#9a6a0e; --a7:#2563a0; --a8:#a01f5b; --a9:#3f7a2e; --a10:#824a8f;
+    --a11:#0f766e; --a12:#7c4a12; --a13:#1e5f8c; --a14:#8a3a6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{ background:#cfccc2; font-family:'IBM Plex Sans',sans-serif; color:var(--ink); padding:18px; }
+
+  .page{
+    width:8.27in; height:11.69in;
+    background:var(--paper);
+    margin:0 auto 18px;
+    padding:0.38in 0.4in 0.3in;
+    box-shadow:0 6px 24px rgba(0,0,0,.22);
+    position:relative;
+    display:flex; flex-direction:column;
+  }
+  .head{ display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:3px solid var(--ink); padding-bottom:7px; margin-bottom:9px; flex:0 0 auto; }
+  .head h1{ font-family:'Newsreader',serif; font-size:25px; font-weight:700; letter-spacing:-.3px; }
+  .head h1 em{ font-style:italic; color:var(--a3); }
+  .head .meta{ font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:var(--faint);
+    text-transform:uppercase; letter-spacing:1px; text-align:right; line-height:1.6; }
+
+  .cols{ column-count:2; column-gap:16px; flex:1 1 auto; }
+
+  .area{ break-inside:avoid; margin-bottom:8px; }
+  .area > h2{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:8.5px; font-weight:600; letter-spacing:.6px; text-transform:uppercase;
+    padding:0 0 2px; margin-bottom:3.5px;
+    border-bottom:1.5px solid; display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .area > h2 .ix{ font-size:7px; opacity:.55; font-weight:500; }
+
+  .e{ margin-bottom:3.5px; break-inside:avoid; font-size:8.7px; line-height:1.32; }
+  .e .t{ font-weight:700; }
+  .e .g{ color:var(--soft); }
+  .e .go{ display:block; color:var(--warn); font-size:8.2px; line-height:1.26; margin-top:.3px; }
+  .e .go::before{ content:"⚠ "; font-weight:700; }
+
+  .a1 h2{color:var(--a1);border-color:var(--a1);} .a1 .t{color:var(--a1);}
+  .a2 h2{color:var(--a2);border-color:var(--a2);} .a2 .t{color:var(--a2);}
+  .a3 h2{color:var(--a3);border-color:var(--a3);} .a3 .t{color:var(--a3);}
+  .a4 h2{color:var(--a4);border-color:var(--a4);} .a4 .t{color:var(--a4);}
+  .a5 h2{color:var(--a5);border-color:var(--a5);} .a5 .t{color:var(--a5);}
+  .a6 h2{color:var(--a6);border-color:var(--a6);} .a6 .t{color:var(--a6);}
+  .a7 h2{color:var(--a7);border-color:var(--a7);} .a7 .t{color:var(--a7);}
+  .a8 h2{color:var(--a8);border-color:var(--a8);} .a8 .t{color:var(--a8);}
+  .a9 h2{color:var(--a9);border-color:var(--a9);} .a9 .t{color:var(--a9);}
+  .a10 h2{color:var(--a10);border-color:var(--a10);} .a10 .t{color:var(--a10);}
+  .a11 h2{color:var(--a11);border-color:var(--a11);} .a11 .t{color:var(--a11);}
+  .a12 h2{color:var(--a12);border-color:var(--a12);} .a12 .t{color:var(--a12);}
+  .a13 h2{color:var(--a13);border-color:var(--a13);} .a13 .t{color:var(--a13);}
+  .a14 h2{color:var(--a14);border-color:var(--a14);} .a14 .t{color:var(--a14);}
+
+  .foot{ flex:0 0 auto; margin-top:6px;
+    display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:4px;
+    font-family:'IBM Plex Mono',monospace; font-size:7.3px; color:var(--faint); letter-spacing:.5px; }
+
+  @media print{
+    body{background:none;padding:0;}
+    .page{box-shadow:none;margin:0;width:auto;height:auto;page-break-after:always;}
+    .page:last-child{page-break-after:auto;}
+    @page{ size:A4 portrait; margin:0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 ===================== -->
+<div class="page">
+  <div class="head">
+    <h1>Practitioner's <em>Field Notes</em></h1>
+    <div class="meta">Term · gloss · ⚠ gotcha<br>the stuff you reason about on the job</div>
+  </div>
+
+  <div class="cols">
+
+    <!-- CLOCKS & ORDERING -->
+    <div class="area a1">
+      <h2><span>Clocks, Ordering &amp; Sequence</span><span class="ix">01</span></h2>
+      <div class="e"><span class="t">Sequence number</span> <span class="g">— monotonic counter giving a total order to events/writes.</span><span class="go">A single global sequencer is a throughput ceiling &amp; SPOF; shard it or you bottleneck.</span></div>
+      <div class="e"><span class="t">Monotonic clock</span> <span class="g">— never goes backwards; for measuring elapsed time.</span><span class="go">Never use wall-clock for durations — NTP steps can make it jump back; use monotonic.</span></div>
+      <div class="e"><span class="t">LSN (Log Sequence Number)</span> <span class="g">— position in the WAL; identifies each change.</span><span class="go">Replicas track LSN to measure lag; a lagging LSN = stale reads on that replica.</span></div>
+      <div class="e"><span class="t">Logical clock / Lamport</span> <span class="g">— orders events without synced wall clocks.</span><span class="go">Gives "happened-before," not real time; can't compare unrelated events.</span></div>
+      <div class="e"><span class="t">Vector clock</span> <span class="g">— per-node counters detecting concurrent writes.</span><span class="go">Grows with node count; needs pruning, and the app still has to merge conflicts.</span></div>
+      <div class="e"><span class="t">Hybrid logical clock (HLC)</span> <span class="g">— logical clock bounded to physical time.</span><span class="go">Best of both, but still trusts NTP within a bound; not a substitute for TrueTime.</span></div>
+      <div class="e"><span class="t">Clock skew</span> <span class="g">— node clocks disagree.</span><span class="go">Breaks timestamp ordering &amp; LWW; Spanner needs TrueTime/atomic clocks to dodge it.</span></div>
+    </div>
+
+    <!-- WRITE / CACHE STRATEGIES -->
+    <div class="area a2">
+      <h2><span>Cache &amp; Write Strategies</span><span class="ix">02</span></h2>
+      <div class="e"><span class="t">Cache-aside (lazy)</span> <span class="g">— app reads cache, on miss loads DB &amp; populates.</span><span class="go">First request is always a miss; stale data until TTL — pair with invalidation.</span></div>
+      <div class="e"><span class="t">Read-through</span> <span class="g">— cache itself loads from DB on miss.</span><span class="go">Cache becomes a dependency; if it's down, reads stop.</span></div>
+      <div class="e"><span class="t">Write-through</span> <span class="g">— write to cache + DB synchronously.</span><span class="go">Every write pays both latencies; consistent but slower writes.</span></div>
+      <div class="e"><span class="t">Write-behind (write-back)</span> <span class="g">— write cache now, flush to DB async.</span><span class="go">Fast writes, but unflushed data is lost if the cache dies — durability risk.</span></div>
+      <div class="e"><span class="t">Refresh-ahead</span> <span class="g">— proactively reload hot keys before they expire.</span><span class="go">Wastes work refreshing keys nobody reads; only worth it for known-hot keys.</span></div>
+      <div class="e"><span class="t">Last-write-wins (LWW)</span> <span class="g">— newest timestamp wins on conflict.</span><span class="go">Silently discards the loser's data; under clock skew the "wrong" write can win.</span></div>
+      <div class="e"><span class="t">TTL &amp; eviction (LRU/LFU)</span> <span class="g">— expire by time; evict by recency/frequency under pressure.</span><span class="go">Uniform TTLs expire together → stampede; jitter them. LRU thrashes on scan-heavy loads.</span></div>
+      <div class="e"><span class="t">Cache invalidation</span> <span class="g">— remove/update stale entries on write.</span><span class="go">The hard problem: write-then-invalidate has a race window; consider versioned keys.</span></div>
+      <div class="e"><span class="t">Negative caching</span> <span class="g">— cache "not found" results too.</span><span class="go">Stops penetration attacks hammering the DB for missing keys; use a short TTL.</span></div>
+    </div>
+
+    <!-- LOCKING & CONSISTENCY -->
+    <div class="area a3">
+      <h2><span>Locking &amp; Consistency</span><span class="ix">03</span></h2>
+      <div class="e"><span class="t">Optimistic lock (version)</span> <span class="g">— read version, write only if unchanged (CAS/ETag).</span><span class="go">Cheap under low contention; under high contention it's all retries &amp; wasted work.</span></div>
+      <div class="e"><span class="t">Pessimistic lock</span> <span class="g">— lock the row up front for the duration.</span><span class="go">Held across slow user steps = poor concurrency + deadlock risk.</span></div>
+      <div class="e"><span class="t">ACID</span> <span class="g">— atomicity, consistency, isolation, durability.</span><span class="go">Doesn't survive across services/shards — that's where you switch to sagas.</span></div>
+      <div class="e"><span class="t">Read-your-writes</span> <span class="g">— a user always sees their own last write.</span><span class="go">Easy to break with read replicas; route the user to the leader briefly after a write.</span></div>
+      <div class="e"><span class="t">Idempotency key</span> <span class="g">— client token making a retried op safe.</span><span class="go">Must handle the concurrent-retry race (unique constraint) or you double-apply.</span></div>
+      <div class="e"><span class="t">Isolation levels</span> <span class="g">— read-committed → repeatable-read → serializable.</span><span class="go">Higher = fewer anomalies but more locking/aborts; know your DB's default (often RC).</span></div>
+      <div class="e"><span class="t">Quorum (R + W &gt; N)</span> <span class="g">— overlapping read/write sets guarantee freshness.</span><span class="go">Tunable, but R=W=1 is fast &amp; stale; the math only bounds staleness, not conflicts.</span></div>
+    </div>
+
+    <!-- TRAFFIC & ROUTING -->
+    <div class="area a4">
+      <h2><span>Traffic Shaping &amp; Routing</span><span class="ix">04</span></h2>
+      <div class="e"><span class="t">Cell / POD architecture</span> <span class="g">— independent stack per user subset.</span><span class="go">Shrinks blast radius, but cross-cell ops &amp; rebalancing are hard; routing layer is critical.</span></div>
+      <div class="e"><span class="t">Multi-region lag</span> <span class="g">— async replication delay between regions.</span><span class="go">A region failover can lose the un-replicated tail; reads in region B are stale.</span></div>
+      <div class="e"><span class="t">Anycast / DNS PoP</span> <span class="g">— same IP, routed to nearest point of presence.</span><span class="go">DNS TTL caching means failover isn't instant — clients hold stale records.</span></div>
+      <div class="e"><span class="t">GeoDNS / latency routing</span> <span class="g">— DNS answers by client location/RTT.</span><span class="go">Resolver location ≠ user location; can misroute users behind big resolvers.</span></div>
+      <div class="e"><span class="t">L4 vs L7 load balancing</span> <span class="g">— route on TCP/IP vs HTTP content.</span><span class="go">L7 enables path/header routing but terminates TLS &amp; costs more CPU than L4 passthrough.</span></div>
+      <div class="e"><span class="t">LB algorithms</span> <span class="g">— round-robin, least-connections, P2C (power-of-two).</span><span class="go">Round-robin ignores load → hits slow nodes; P2C avoids the herd of "least-loaded."</span></div>
+      <div class="e"><span class="t">Consistent-hash routing</span> <span class="g">— sticky map of key→node for cache affinity.</span><span class="go">One node leaving reshuffles a slice; without vnodes the load lands unevenly.</span></div>
+      <div class="e"><span class="t">Backpressure</span> <span class="g">— downstream signals "slow down" upstream.</span><span class="go">Without it, queues grow unbounded → OOM; bound queues &amp; reject early instead.</span></div>
+      <div class="e"><span class="t">Load shedding</span> <span class="g">— drop excess requests to protect the rest.</span><span class="go">Shed cheap/low-priority first; shedding everything equally just spreads the pain.</span></div>
+      <div class="e"><span class="t">Circuit breaker</span> <span class="g">— stop calling a failing dependency (open/half-open).</span><span class="go">Too-sensitive trips cause needless outages; tune per dependency, add a fallback.</span></div>
+      <div class="e"><span class="t">Admission control</span> <span class="g">— gate requests at the door to protect SLOs.</span><span class="go">Must shed low-priority first &amp; signal clients (429) or rejected load just retries.</span></div>
+      <div class="e"><span class="t">Timeout + deadline propagation</span> <span class="g">— cap wait; pass remaining budget down the chain.</span><span class="go">No timeout = threads pile up on a hung call; propagate or downstream wastes work on a dead request.</span></div>
+      <div class="e"><span class="t">Hedged request</span> <span class="g">— fire a 2nd copy if the 1st is slow; take first to return.</span><span class="go">Cuts tail latency but adds load; cap with a tight P95 trigger or you double traffic.</span></div>
+      <div class="e"><span class="t">Connection draining</span> <span class="g">— stop new conns, let in-flight finish before shutdown.</span><span class="go">Skip it and a deploy kills live requests; set a drain timeout under the LB's.</span></div>
+      <div class="e"><span class="t">Priority / QoS lanes</span> <span class="g">— separate queues so critical traffic isn't starved.</span><span class="go">One fat batch job can starve interactive traffic; isolate lanes &amp; weight them.</span></div>
+      <div class="e"><span class="t">DNS poisoning</span> <span class="g">— attacker injects forged DNS records.</span><span class="go">A security threat, not a routing tool; mitigate with DNSSEC.</span></div>
+    </div>
+
+    <!-- METRICS -->
+    <div class="area a5">
+      <h2><span>Top-Line Metrics</span><span class="ix">05</span></h2>
+      <div class="e"><span class="t">P50 / P99 / P999</span> <span class="g">— latency at the 50th/99th/99.9th percentile.</span><span class="go">P99 is what your heaviest users feel; optimizing the mean hides the tail.</span></div>
+      <div class="e"><span class="t">Mean vs tail</span> <span class="g">— average vs the slow extremes.</span><span class="go">Fan-out makes tail dominate: 100 calls at P99=1% → ~63% of requests hit a slow one.</span></div>
+      <div class="e"><span class="t">Uptime / availability</span> <span class="g">— % of time the service meets its SLO.</span><span class="go">Define it by successful requests, not "server is pingable" — those differ a lot.</span></div>
+      <div class="e"><span class="t">Downtime budget</span> <span class="g">— allowed unavailability (99.9% ≈ 43 min/mo).</span><span class="go">Each extra nine is ~10× cost; don't promise nines the business won't pay for.</span></div>
+      <div class="e"><span class="t">Error budget</span> <span class="g">— the SLO's allowed failure, spent on risk/velocity.</span><span class="go">Burn it too fast → freeze releases; it's a contract between product &amp; ops.</span></div>
+      <div class="e"><span class="t">Saturation</span> <span class="g">— how "full" the busiest resource is (USE method).</span><span class="go">Latency stays flat then hits a knee near saturation — watch the trend, not the cliff.</span></div>
+    </div>
+
+    <!-- CAPACITY -->
+    <div class="area a5">
+      <h2><span>Capacity &amp; Estimation</span><span class="ix">05b</span></h2>
+      <div class="e"><span class="t">QPS / peak-to-average</span> <span class="g">— request rate; peaks run 2–10× the average.</span><span class="go">Size for peak, not average, or you fall over at the worst moment.</span></div>
+      <div class="e"><span class="t">Little's Law</span> <span class="g">— concurrency = arrival rate × latency.</span><span class="go">Cut latency and you cut needed concurrency/threads; the lever is often latency, not boxes.</span></div>
+      <div class="e"><span class="t">Headroom</span> <span class="g">— spare capacity kept above expected peak.</span><span class="go">Running hot leaves no room for failover load — a dead node dumps its traffic on you.</span></div>
+    </div>
+
+  </div>
+  <div class="foot"><span>PRACTITIONER'S FIELD NOTES</span><span>PAGE 1 / 4</span></div>
+</div>
+
+<!-- ===================== PAGE 2 ===================== -->
+<div class="page">
+  <div class="cols">
+
+    <!-- SCALING FAILURE MODES -->
+    <div class="area a6">
+      <h2><span>Scaling Failure Modes</span><span class="ix">06</span></h2>
+      <div class="e"><span class="t">Retries (the dark side)</span> <span class="g">— re-sending on failure to ride out transients.</span><span class="go">Retries multiply load on an already-struggling service; bound them + use a retry budget.</span></div>
+      <div class="e"><span class="t">Thundering herd</span> <span class="g">— mass simultaneous requests on one resource.</span><span class="go">Cache-miss stampede on a hot key crushes the DB; coalesce requests + jitter TTLs.</span></div>
+      <div class="e"><span class="t">Metastable failure</span> <span class="g">— system stays down after the trigger clears.</span><span class="go">Retry storms keep it pinned; you must shed load to escape, not just wait.</span></div>
+      <div class="e"><span class="t">Hot partition / key skew</span> <span class="g">— one shard takes disproportionate load.</span><span class="go">A celebrity/viral key melts one node; salt the key or split it.</span></div>
+      <div class="e"><span class="t">Cascading failure</span> <span class="g">— one component's failure topples dependents.</span><span class="go">Synchronous call chains propagate it; bulkheads + timeouts contain it.</span></div>
+      <div class="e"><span class="t">Gray failure</span> <span class="g">— degraded-but-alive; passes health checks while failing real work.</span><span class="go">The worst kind — monitoring says green; measure from the caller's view, not self-reported.</span></div>
+      <div class="e"><span class="t">Coordinated omission</span> <span class="g">— load tools under-count latency by pausing when the system stalls.</span><span class="go">Your P99 looks great because the worst samples were never taken; correct for it.</span></div>
+    </div>
+
+    <!-- DEPLOYMENT -->
+    <div class="area a7">
+      <h2><span>Deployment &amp; Release</span><span class="ix">07</span></h2>
+      <div class="e"><span class="t">Blue-green</span> <span class="g">— two identical envs; flip traffic to the new one.</span><span class="go">Instant rollback, but double the infra; DB schema must serve both at once.</span></div>
+      <div class="e"><span class="t">Canary</span> <span class="g">— release to a small % first, watch metrics, then ramp.</span><span class="go">Needs good metrics &amp; auto-rollback; a slow canary delays the rollout.</span></div>
+      <div class="e"><span class="t">Rolling</span> <span class="g">— replace instances batch by batch.</span><span class="go">Old + new run together mid-roll; both versions must be compatible.</span></div>
+      <div class="e"><span class="t">Feature flag</span> <span class="g">— decouple deploy from release; toggle at runtime.</span><span class="go">Flags accumulate into debt; stale flags are landmines — clean them up.</span></div>
+      <div class="e"><span class="t">Expand-contract migration</span> <span class="g">— add new schema, migrate, drop old.</span><span class="go">Never rename/drop in one step; backward-compatible stages or you break in-flight code.</span></div>
+    </div>
+
+    <!-- MESSAGING -->
+    <div class="area a3">
+      <h2><span>Messaging &amp; Queues</span><span class="ix">07b</span></h2>
+      <div class="e"><span class="t">At-least / at-most / exactly-once</span> <span class="g">— delivery guarantees.</span><span class="go">At-least-once is the real default; "exactly-once" is at-least-once + dedup, never magic.</span></div>
+      <div class="e"><span class="t">Dead-letter queue (DLQ)</span> <span class="g">— sink for messages that keep failing.</span><span class="go">Without one, a poison message blocks the queue forever; alert on DLQ depth.</span></div>
+      <div class="e"><span class="t">Consumer lag</span> <span class="g">— how far behind consumers are vs producers.</span><span class="go">The key health signal; rising lag = you're losing — scale consumers or shed.</span></div>
+      <div class="e"><span class="t">Ordering &amp; partitions</span> <span class="g">— order is per-partition, not global.</span><span class="go">Need global order? You serialize through one partition — that's your throughput cap.</span></div>
+      <div class="e"><span class="t">Outbox pattern</span> <span class="g">— write event + data in one txn, relay publishes.</span><span class="go">Solves dual-write, but delivers at-least-once — consumers still need dedup.</span></div>
+    </div>
+
+    <!-- OBSERVABILITY & ANALYTICS -->
+    <div class="area a8">
+      <h2><span>Debugging &amp; Analytics</span><span class="ix">08</span></h2>
+      <div class="e"><span class="t">Request tracing / request ID</span> <span class="g">— correlation ID threaded through every hop.</span><span class="go">Must propagate across async/queue boundaries or the trace breaks where it matters most.</span></div>
+      <div class="e"><span class="t">Distributed tracing</span> <span class="g">— spans across services (OpenTelemetry).</span><span class="go">100% sampling is expensive; tail-sample to keep the slow/error traces.</span></div>
+      <div class="e"><span class="t">Debug / dynamic log levels</span> <span class="g">— raise verbosity without redeploy.</span><span class="go">Debug logging in hot paths is its own perf hit; sample &amp; scope it.</span></div>
+      <div class="e"><span class="t">Requests-as-data</span> <span class="g">— emit each request as an analytics event.</span><span class="go">High-cardinality fields explode metric cardinality &amp; cost; pick dimensions carefully.</span></div>
+      <div class="e"><span class="t">Structured logging</span> <span class="g">— logs as key-value/JSON, not free text.</span><span class="go">Free-text logs can't be queried at scale; structure them or they're write-only.</span></div>
+      <div class="e"><span class="t">Logs vs metrics vs traces</span> <span class="g">— events · aggregates · request paths.</span><span class="go">Don't reconstruct metrics from logs at query time — pre-aggregate the hot ones.</span></div>
+    </div>
+
+    <!-- COUNTING -->
+    <div class="area a9">
+      <h2><span>Counting at Scale</span><span class="ix">09</span></h2>
+      <div class="e"><span class="t">Approx counting (batched)</span> <span class="g">— buffer increments, flush aggregated.</span><span class="go">Unflushed counts lost on crash; reads lag the flush interval — fine for "views," not billing.</span></div>
+      <div class="e"><span class="t">Real-time counting</span> <span class="g">— atomic increment per event (Redis).</span><span class="go">A single hot counter row serializes writes; shard the counter, sum on read.</span></div>
+      <div class="e"><span class="t">Probabilistic (HLL / CMS)</span> <span class="g">— distinct/frequency in tiny fixed memory.</span><span class="go">Bounded error by design; never use where exactness is required.</span></div>
+    </div>
+
+    <!-- RATE LIMITING -->
+    <div class="area a10">
+      <h2><span>Rate Limiting</span><span class="ix">10</span></h2>
+      <div class="e"><span class="t">In-memory (per node)</span> <span class="g">— each node enforces its own limit locally.</span><span class="go">No global view — N nodes = N× the intended limit; only fair if traffic is even.</span></div>
+      <div class="e"><span class="t">Centralized (Redis)</span> <span class="g">— shared atomic counter for a true global limit.</span><span class="go">Adds a network hop &amp; a hotspot dependency; if it's down, do you fail open or closed?</span></div>
+      <div class="e"><span class="t">Full-mesh / gossip</span> <span class="g">— nodes share counts to approximate global.</span><span class="go">Eventually-consistent counts → brief over-admission; cheaper than centralized.</span></div>
+      <div class="e"><span class="t">Token bucket</span> <span class="g">— tokens refill at rate R, burst up to B.</span><span class="go">Tune B carefully — too large defeats the limit, too small rejects legit bursts.</span></div>
+      <div class="e"><span class="t">Sliding window</span> <span class="g">— count over a moving interval, not a fixed reset.</span><span class="go">Fixed windows allow a 2× burst at the boundary; sliding log is precise but memory-heavy.</span></div>
+      <div class="e"><span class="t">Cost-based limiting</span> <span class="g">— charge requests by weight, not count.</span><span class="go">A flat req/s limit is gameable — one expensive call ≠ one cheap one; price by work.</span></div>
+    </div>
+
+    <!-- AUTH -->
+    <div class="area a11">
+      <h2><span>Authentication</span><span class="ix">11</span></h2>
+      <div class="e"><span class="t">Token validation (JWT)</span> <span class="g">— verify signature + claims, no DB hit.</span><span class="go">Stateless = can't easily revoke; use short TTLs + a refresh/denylist.</span></div>
+      <div class="e"><span class="t">JWKS</span> <span class="g">— public-key endpoint for verifying JWT signatures.</span><span class="go">Cache keys, but honor rotation; a stale JWKS cache rejects valid tokens.</span></div>
+      <div class="e"><span class="t">OAuth2 + PKCE</span> <span class="g">— delegated auth; PKCE secures public clients.</span><span class="go">Don't roll your own; use the auth-code+PKCE flow, never implicit.</span></div>
+      <div class="e"><span class="t">mTLS</span> <span class="g">— mutual cert auth for service-to-service.</span><span class="go">Cert rotation/expiry is the operational trap — automate it or you get outages.</span></div>
+      <div class="e"><span class="t">AuthN vs AuthZ</span> <span class="g">— who you are vs what you may do (RBAC/ABAC/ReBAC).</span><span class="go">Don't conflate them; a valid token still needs a permission check on every action.</span></div>
+      <div class="e"><span class="t">Refresh-token rotation</span> <span class="g">— issue a new refresh token on each use.</span><span class="go">Detects token theft (reuse of an old one); without it a leaked refresh token lives forever.</span></div>
+    </div>
+
+    <!-- COSTING -->
+    <div class="area a12">
+      <h2><span>Costing &amp; Billing</span><span class="ix">12</span></h2>
+      <div class="e"><span class="t">No free lunch</span> <span class="g">— every quality (a nine, low latency) has a cost.</span><span class="go">Each extra nine ≈ 10× spend; match reliability to what the business will pay for.</span></div>
+      <div class="e"><span class="t">Cost per customer at scale</span> <span class="g">— unit economics of serving one user.</span><span class="go">Watch the heavy tail — a few power users can dominate cost; meter &amp; cap them.</span></div>
+      <div class="e"><span class="t">Pay-per-request pricing</span> <span class="g">— bill per call when cost is predictable.</span><span class="go">Breaks if request cost varies wildly; weight by actual work or you lose money.</span></div>
+      <div class="e"><span class="t">Pay-per-resource pricing</span> <span class="g">— bill by compute/storage/egress consumed.</span><span class="go">Egress is the silent budget-killer; attribute &amp; alert on it (FinOps).</span></div>
+    </div>
+
+  </div>
+  <div class="foot"><span>PRACTITIONER'S FIELD NOTES</span><span>PAGE 2 / 4</span></div>
+</div>
+
+<!-- ===================== PAGE 3 ===================== -->
+<div class="page">
+  <div class="cols">
+
+    <!-- ISOLATION -->
+    <div class="area a4">
+      <h2><span>Isolation (Tenant &amp; Regulated)</span><span class="ix">13</span></h2>
+      <div class="e"><span class="t">Compute isolation</span> <span class="g">— separate the execution environment per tenant (VM, dedicated node, namespace+cgroups).</span><span class="go">Gov/HIPAA workloads often can't share a kernel/host; shared containers may fail audit — use VMs or dedicated nodes.</span></div>
+      <div class="e"><span class="t">Storage / DB isolation</span> <span class="g">— silo data per tenant: row (shared), schema, or database-per-tenant.</span><span class="go">Shared-row needs flawless tenant-ID filtering — one missing WHERE clause = a cross-tenant leak &amp; breach.</span></div>
+      <div class="e"><span class="t">Network isolation</span> <span class="g">— per-tenant VPC/subnet, security groups, no shared egress.</span><span class="go">"Soft" isolation (just app-layer) rarely satisfies regulators; they want network-level proof.</span></div>
+      <div class="e"><span class="t">Noisy neighbor</span> <span class="g">— one tenant's load degrades others on shared infra.</span><span class="go">The hidden cost of shared isolation; needs quotas + per-tenant rate limits to contain.</span></div>
+      <div class="e"><span class="t">Data residency</span> <span class="g">— keep a tenant's data in a specific region/jurisdiction.</span><span class="go">Backups, logs &amp; caches also count — residency leaks through the side doors you forget.</span></div>
+      <div class="e"><span class="t">Single-tenant vs pooled</span> <span class="g">— dedicated stack vs shared with logical separation.</span><span class="go">Single-tenant is the safe audit answer but multiplies cost &amp; ops; tier it by customer.</span></div>
+    </div>
+
+    <!-- COMPLIANCE -->
+    <div class="area a8">
+      <h2><span>Compliance</span><span class="ix">14</span></h2>
+      <div class="e"><span class="t">GDPR</span> <span class="g">— EU data-protection law: consent, access, and the right to be forgotten.</span><span class="go">Applies to any service touching EU residents' data, wherever you're hosted; fines scale with revenue.</span></div>
+      <div class="e"><span class="t">On-demand data deletion</span> <span class="g">— purge a user's data across all stores on request (GDPR/CCPA "right to erasure").</span><span class="go">Hard with backups, caches, logs, analytics &amp; replicas — design deletion paths up front, don't bolt on.</span></div>
+      <div class="e"><span class="t">HIPAA</span> <span class="g">— US health-data rules: protect PHI, audit access, sign BAAs with vendors.</span><span class="go">Encryption + access logs aren't optional; every sub-processor needs a BAA or you're non-compliant.</span></div>
+      <div class="e"><span class="t">PCI-DSS</span> <span class="g">— payment-card security standard for handling cardholder data.</span><span class="go">Tokenize/outsource card data to shrink scope — storing PANs yourself makes the whole system in-scope.</span></div>
+      <div class="e"><span class="t">SOC 2</span> <span class="g">— audited report on security/availability controls (trust for B2B).</span><span class="go">It's about evidence: if it isn't logged &amp; documented, the auditor treats it as not done.</span></div>
+      <div class="e"><span class="t">Data classification</span> <span class="g">— tag data by sensitivity (public → PII → PHI/PCI).</span><span class="go">You can't protect what you haven't classified; controls &amp; retention follow the tag.</span></div>
+      <div class="e"><span class="t">Audit trail</span> <span class="g">— immutable, tamper-evident log of who accessed/changed what.</span><span class="go">Required by most regimes; if it's mutable or gappy, it won't hold up in an audit.</span></div>
+    </div>
+
+  </div>
+  <div class="foot"><span>PRACTITIONER'S FIELD NOTES</span><span>PAGE 3 / 4</span></div>
+</div>
+
+<!-- ===================== PAGE 4 ===================== -->
+<div class="page">
+  <div class="cols">
+
+    <!-- OPERATIONS -->
+    <div class="area a13">
+      <h2><span>Operations &amp; Incidents</span><span class="ix">15</span></h2>
+      <div class="e"><span class="t">SRE</span> <span class="g">— Site Reliability Engineering; run ops with software &amp; SLOs, not toil.</span><span class="go">If your "SRE" team just does manual ops, you've renamed sysadmins — automate or it doesn't scale.</span></div>
+      <div class="e"><span class="t">Toil</span> <span class="g">— manual, repetitive, automatable work with no lasting value.</span><span class="go">Toil grows linearly with scale; cap it (e.g. &lt;50% of time) or the team drowns.</span></div>
+      <div class="e"><span class="t">On-call / runbook</span> <span class="g">— rotation that responds; runbook = step-by-step fix guide.</span><span class="go">Alerts without runbooks just wake people up; every page should be actionable &amp; documented.</span></div>
+      <div class="e"><span class="t">Incident severity (SEV)</span> <span class="g">— SEV1 (critical) → SEV3+; sets response &amp; comms.</span><span class="go">Under-classifying delays the right response; over-classifying causes alert fatigue.</span></div>
+      <div class="e"><span class="t">MTTD / MTTR / MTBF</span> <span class="g">— mean time to detect / recover / between failures.</span><span class="go">MTTR usually beats MTBF to improve — you can't prevent all failures, so recover fast.</span></div>
+      <div class="e"><span class="t">Blameless postmortem</span> <span class="g">— write-up of cause &amp; fixes, no finger-pointing.</span><span class="go">Blame hides the truth; people stop reporting. Fix systems &amp; processes, not people.</span></div>
+      <div class="e"><span class="t">Alert fatigue</span> <span class="g">— too many low-value alerts dull response.</span><span class="go">Noisy alerts get ignored — then the real one is missed; alert on symptoms, not every cause.</span></div>
+      <div class="e"><span class="t">Change freeze</span> <span class="g">— halt deploys during peak/risk windows.</span><span class="go">Freezes batch up risk into one big post-freeze release; prefer small continuous over big-bang.</span></div>
+      <div class="e"><span class="t">Capacity / DR drill</span> <span class="g">— rehearse failover &amp; load before you need it.</span><span class="go">An untested backup/failover is a hope, not a plan — drill it or it fails when it counts.</span></div>
+      <div class="e"><span class="t">Golden signals</span> <span class="g">— latency, traffic, errors, saturation: what to watch.</span><span class="go">Dashboards full of vanity metrics hide these four; alert on the signals, not CPU graphs.</span></div>
+    </div>
+
+    <!-- TECH FINANCE -->
+    <div class="area a14">
+      <h2><span>Tech Finance &amp; Business</span><span class="ix">16</span></h2>
+      <div class="e"><span class="t">CapEx vs OpEx</span> <span class="g">— upfront capital (own hardware) vs ongoing spend (cloud).</span><span class="go">Cloud shifts CapEx→OpEx; great for flexibility, but unmanaged OpEx creeps without a ceiling.</span></div>
+      <div class="e"><span class="t">TCO</span> <span class="g">— total cost of ownership: build + run + people + opportunity.</span><span class="go">"Free"/cheap options often have high TCO via ops burden; count the whole lifecycle.</span></div>
+      <div class="e"><span class="t">Unit economics</span> <span class="g">— cost &amp; revenue per unit (user, request, GB).</span><span class="go">If cost-per-unit doesn't drop with scale, growth makes losses bigger, not smaller.</span></div>
+      <div class="e"><span class="t">Gross margin</span> <span class="g">— revenue minus cost of serving it (infra, support).</span><span class="go">Cloud/egress/LLM spend eats margin silently; track margin per product line, not just topline.</span></div>
+      <div class="e"><span class="t">COGS</span> <span class="g">— cost of goods sold; for SaaS = the cost to run the service.</span><span class="go">Misclassifying R&amp;D as COGS (or vice-versa) distorts margin &amp; valuation.</span></div>
+      <div class="e"><span class="t">Burn rate / runway</span> <span class="g">— monthly net spend / months of cash left.</span><span class="go">A big cloud commit can shorten runway fast; model spend against runway before signing.</span></div>
+      <div class="e"><span class="t">Reserved / spot / committed-use</span> <span class="g">— discounts for upfront or interruptible capacity.</span><span class="go">Over-commit and you pay for idle; spot can vanish mid-job — only for fault-tolerant work.</span></div>
+      <div class="e"><span class="t">Chargeback / showback</span> <span class="g">— bill (or just show) teams their cloud spend.</span><span class="go">Untagged resources can't be attributed; without tagging discipline, FinOps is blind.</span></div>
+      <div class="e"><span class="t">ROI / payback period</span> <span class="g">— return vs cost; time to recoup an investment.</span><span class="go">Migrations/rewrites often have long payback; sponsors lose patience — phase the value.</span></div>
+      <div class="e"><span class="t">Build vs buy</span> <span class="g">— in-house vs vendor/SaaS for a capability.</span><span class="go">Build only your differentiator; buy the rest, or you spend headcount reinventing commodities.</span></div>
+    </div>
+
+  </div>
+  <div class="foot"><span>18 AREAS · TERM · GLOSS · ⚠ GOTCHA · COMPANION TO THE COOKBOOK, KEYWORD MAP &amp; VOCABULARY</span><span>PAGE 4 / 4</span></div>
+</div>
+
+</body>
+</html>
