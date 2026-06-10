@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resilient Architecture — Cheatsheet</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fff;
+      color: #111;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      padding: 32px 36px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #111;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .header .sub {
+      font-size: 10px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 3px;
+    }
+
+    .definition {
+      border-left: 2px solid #111;
+      padding-left: 14px;
+      max-width: 500px;
+    }
+
+    .definition .def-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .definition p {
+      font-size: 11px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .definition strong { color: #111; }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      display: grid;
+      grid-template-columns: 1fr 290px;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    /* ── ADVERSARY GRID ── */
+    .adv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+    }
+
+    .card {
+      padding: 12px 14px;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+
+    .card-num {
+      font-size: 9px;
+      font-weight: 700;
+      color: #aaa;
+      min-width: 18px;
+    }
+
+    .card-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding-left: 24px;
+    }
+
+    .tag {
+      font-size: 10px;
+      color: #444;
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 1px 6px;
+      border-radius: 2px;
+    }
+
+    /* ── RIGHT COL ── */
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel-title {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #111;
+      margin-bottom: 12px;
+    }
+
+    .hierarchy { margin-bottom: 10px; }
+    .hierarchy:last-child { margin-bottom: 0; }
+
+    .h-label {
+      font-size: 9px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .h-chain {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2px;
+    }
+
+    .h-node {
+      font-size: 9.5px;
+      color: #111;
+      padding: 1px 5px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      background: #fafafa;
+    }
+
+    .h-node.hi { border-color: #111; background: #fff; font-weight: 600; }
+    .h-node.lo { color: #888; }
+
+    .h-arrow { font-size: 9px; color: #bbb; padding: 0 1px; }
+
+    /* ── GLOSSARY ── */
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-top: 1px solid #ddd;
+      border-left: 1px solid #ddd;
+    }
+
+    .kw {
+      padding: 6px 10px;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .kw-term {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1px;
+    }
+
+    .kw-def {
+      font-size: 10px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .section-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #111;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Resilient Architecture</h1>
+      <div class="sub">Principal Engineer Cheatsheet</div>
+    </div>
+    <div class="definition">
+      <div class="def-label">Core Definition</div>
+      <p>The system's ability to maintain <strong>acceptable service levels</strong> in the presence of adversity, and return to a <strong>known good state</strong> within acceptable time bounds. Not binary — design for <strong>graceful degradation</strong>. Ask not "is this resilient?" but <strong>"resilient against what?"</strong></p>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ADVERSARIES -->
+    <div>
+      <div class="section-label">10 Adversary Classes</div>
+      <div class="adv-grid">
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">01</span><span class="card-name">Traffic Shape</span></div>
+          <div class="tags"><span class="tag">kill switch</span><span class="tag">admission control</span><span class="tag">predictive autoscaling</span><span class="tag">load shedding</span><span class="tag">traffic redirection</span><span class="tag">blackholing</span><span class="tag">rate limiting</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">02</span><span class="card-name">Infrastructure</span></div>
+          <div class="tags"><span class="tag">auto-sharding</span><span class="tag">isolation</span><span class="tag">redundancy 3x</span><span class="tag">multi-regional</span><span class="tag">cell-based architecture</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">03</span><span class="card-name">Dependency Failure</span></div>
+          <div class="tags"><span class="tag">circuit breaker</span><span class="tag">graceful degradation</span><span class="tag">default values</span><span class="tag">respect SLA</span><span class="tag">be pessimistic</span><span class="tag">bulkhead</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">04</span><span class="card-name">Change</span></div>
+          <div class="tags"><span class="tag">canary deploy</span><span class="tag">feature flags</span><span class="tag">kill switch culture</span><span class="tag">expand-contract</span><span class="tag">rollback trigger</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">05</span><span class="card-name">Human &amp; Operational</span></div>
+          <div class="tags"><span class="tag">regular rituals</span><span class="tag">new eyes on runbooks</span><span class="tag">runbook as decision tree</span><span class="tag">pre-mortem</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">06</span><span class="card-name">Security</span></div>
+          <div class="tags"><span class="tag">outside vector</span><span class="tag">internal vector</span><span class="tag">per-account rate limit</span><span class="tag">access audit</span><span class="tag">challenge pages</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">07</span><span class="card-name">Noisy Neighbor</span></div>
+          <div class="tags"><span class="tag">kill / isolate neighbor</span><span class="tag">isolate compute</span><span class="tag">isolate storage</span><span class="tag">tenant sharding</span><span class="tag">per-tenant limits</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">08</span><span class="card-name">Time-Point</span></div>
+          <div class="tags"><span class="tag">automated cert rotation</span><span class="tag">projection alerting</span><span class="tag">30-60d lead time</span><span class="tag">NTP monitoring</span><span class="tag">TTL audit</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">09</span><span class="card-name">Slow-Over-Time</span></div>
+          <div class="tags"><span class="tag">trending graphs</span><span class="tag">rate-of-change alerts</span><span class="tag">ops review cadence</span><span class="tag">chaos on fallback paths</span><span class="tag">blast radius review</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><span class="card-num">10</span><span class="card-name">Organizational</span></div>
+          <div class="tags"><span class="tag">dependency approval gate</span><span class="tag">blast radius ownership map</span><span class="tag">inter-service SLAs</span><span class="tag">on-call permission audit</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HIERARCHIES -->
+    <div class="right-col">
+      <div>
+        <div class="panel-title">Hierarchies</div>
+
+        <div class="hierarchy">
+          <div class="h-label">Failure Scope</div>
+          <div class="h-chain">
+            <span class="h-node hi">request</span><span class="h-arrow">→</span><span class="h-node">instance</span><span class="h-arrow">→</span><span class="h-node">service</span><span class="h-arrow">→</span><span class="h-node">cluster</span><span class="h-arrow">→</span><span class="h-node">AZ</span><span class="h-arrow">→</span><span class="h-node">region</span><span class="h-arrow">→</span><span class="h-node lo">global</span>
+          </div>
+        </div>
+
+        <div class="hierarchy">
+          <div class="h-label">Degradation Mode</div>
+          <div class="h-chain">
+            <span class="h-node hi">full service</span><span class="h-arrow">→</span><span class="h-node">partial</span><span class="h-arrow">→</span><span class="h-node">stale data</span><span class="h-arrow">→</span><span class="h-node">static fallback</span><span class="h-arrow">→</span><span class="h-node lo">error page</span>
+          </div>
+        </div>
+
+        <div class="hierarchy">
+          <div class="h-label">Investment Tier</div>
+          <div class="h-chain">
+            <span class="h-node hi">life-critical</span><span class="h-arrow">→</span><span class="h-node">financial</span><span class="h-arrow">→</span><span class="h-node">biz-critical</span><span class="h-arrow">→</span><span class="h-node">important</span><span class="h-arrow">→</span><span class="h-node lo">experimental</span>
+          </div>
+        </div>
+
+        <div class="hierarchy">
+          <div class="h-label">Recovery Path</div>
+          <div class="h-chain">
+            <span class="h-node hi">auto-recovery</span><span class="h-arrow">→</span><span class="h-node">auto runbook</span><span class="h-arrow">→</span><span class="h-node">manual runbook</span><span class="h-arrow">→</span><span class="h-node">escalation</span><span class="h-arrow">→</span><span class="h-node lo">incident cmd</span>
+          </div>
+        </div>
+
+        <div class="hierarchy">
+          <div class="h-label">Dependency Trust</div>
+          <div class="h-chain">
+            <span class="h-node hi">owned</span><span class="h-arrow">→</span><span class="h-node">internal+SLA</span><span class="h-arrow">→</span><span class="h-node">external+SLA</span><span class="h-arrow">→</span><span class="h-node">best-effort</span><span class="h-arrow">→</span><span class="h-node lo">no contract</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GLOSSARY -->
+  <div>
+    <div class="section-label">Keyword Glossary</div>
+    <div class="glossary-grid">
+      <div class="kw"><div class="kw-term">RTO</div><div class="kw-def">Recovery Time Objective — max acceptable downtime after a failure</div></div>
+      <div class="kw"><div class="kw-term">RPO</div><div class="kw-def">Recovery Point Objective — max acceptable data loss, measured in time</div></div>
+      <div class="kw"><div class="kw-term">SLA</div><div class="kw-def">Service Level Agreement — contractual uptime commitment to customers</div></div>
+      <div class="kw"><div class="kw-term">SLO</div><div class="kw-def">Service Level Objective — internal target, usually stricter than the SLA</div></div>
+      <div class="kw"><div class="kw-term">SLI</div><div class="kw-def">Service Level Indicator — the metric used to track SLO compliance</div></div>
+      <div class="kw"><div class="kw-term">MTTR</div><div class="kw-def">Mean Time To Recovery — avg time from failure detection to restoration</div></div>
+      <div class="kw"><div class="kw-term">MTBF</div><div class="kw-def">Mean Time Between Failures — avg run time before the next failure</div></div>
+      <div class="kw"><div class="kw-term">error budget</div><div class="kw-def">Allowable downtime per period; when spent, feature work stops</div></div>
+      <div class="kw"><div class="kw-term">blast radius</div><div class="kw-def">Scope of impact when a component fails — users, services, or data</div></div>
+      <div class="kw"><div class="kw-term">fault domain</div><div class="kw-def">A boundary within which a single failure can propagate</div></div>
+      <div class="kw"><div class="kw-term">bulkhead</div><div class="kw-def">Isolate thread pools per downstream so one failure cannot starve others</div></div>
+      <div class="kw"><div class="kw-term">circuit breaker</div><div class="kw-def">Stop calling a failing dependency; open the circuit, serve the fallback</div></div>
+      <div class="kw"><div class="kw-term">thundering herd</div><div class="kw-def">All clients retry simultaneously post-outage, recreating the failure</div></div>
+      <div class="kw"><div class="kw-term">split brain</div><div class="kw-def">Network partition causes two nodes to each believe they are primary</div></div>
+      <div class="kw"><div class="kw-term">load shedding</div><div class="kw-def">Intentionally reject low-priority traffic to protect high-priority capacity</div></div>
+      <div class="kw"><div class="kw-term">failover</div><div class="kw-def">Automatic switch from a failed primary to a healthy secondary</div></div>
+      <div class="kw"><div class="kw-term">expand-contract</div><div class="kw-def">Safe schema migration: add column, migrate, switch reads, drop old</div></div>
+      <div class="kw"><div class="kw-term">canary deploy</div><div class="kw-def">Route small % of traffic to new version before full rollout</div></div>
+      <div class="kw"><div class="kw-term">admission control</div><div class="kw-def">Reject requests at the door when capacity is at or near limit</div></div>
+      <div class="kw"><div class="kw-term">noisy neighbor</div><div class="kw-def">Co-located workload consuming shared resources and degrading others</div></div>
+      <div class="kw"><div class="kw-term">degradation rot</div><div class="kw-def">Fallback path that worked at build time but has silently decayed since</div></div>
+      <div class="kw"><div class="kw-term">pre-mortem</div><div class="kw-def">Pre-launch: assume failure, work backwards to find causes while fixable</div></div>
+      <div class="kw"><div class="kw-term">cell-based arch</div><div class="kw-def">Stack sharded into independent cells; failure affects 1/N, not all traffic</div></div>
+      <div class="kw"><div class="kw-term">blast radius creep</div><div class="kw-def">Tier 4 utility accumulates dependents silently until it is functionally Tier 2</div></div>
+    </div>
+  </div>
+
+</body>
+</html>
