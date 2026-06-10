@@ -6,7 +6,7 @@ A working collection of dense, print-ready reference material for system design 
 
 ## Resources
 
-- [Field Practitioner](./field-practitioner)
+- [Field Practitioner](./docs/field-practitioner.html)
 
 ---
 
